@@ -28,7 +28,7 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - mongo-data:/data/db
+      - ./mongo-data:/data/db
 
   spark-master:
     image: bitnami/spark:latest
@@ -53,6 +53,7 @@ services:
   app:
     build:
       context: .
+      dockerfile: docker/Dockerfile  # Specify the path to the Dockerfile
     container_name: app
     depends_on:
       - kafka

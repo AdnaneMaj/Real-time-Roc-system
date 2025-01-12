@@ -1,0 +1,3 @@
+numpy
+motor
+pydantic_settings
