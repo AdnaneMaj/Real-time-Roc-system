@@ -1,16 +1,9 @@
 import pandas as pd
 import random
+from transformers import BertTokenizer, BertForSequenceClassification
+import torch
 
 # Fonction pour ajouter une ligne au fichier CSV
-
-
-names = [
-    "Al Iman", "Al Fath", "An Nour", "Al Baraka", "As Salam", "Al Rahman", "Al Quds", "Al Hikma",
-    "Ibn Khaldoun", "Al Idrissi", "Ibn Batouta", "Salah Eddine", "Al Mansour", "Ibn Rochd",
-    "Atlas", "Sahara", "Rif", "Al Gharb", "Al Charq", "Toubkal", "Al Mazagan", "Mogador",
-    "Al Malaki", "Al Sultani", "Al Amiri", "Al Wassim", "Al Bahia", "Al Saadi",
-    "Al Wahat", "Al Nakhl", "Al Yasmine", "Al Ward", "Al Zaytoun", "Al Bahr"
-]
 
 regions = [
     "Tanger-Tetouan-Al Hoceima", "L'Oriental", "Fes-Meknes", "Rabat-Sale-Kenitra",
@@ -47,7 +40,7 @@ comments = [
     "The place was dirty and not well-organized.",
     "Limited activities and things to do.",
     "Highly recommended for food lovers.",
-    "Unique, it contains unique activities and experiences.",
+    "Unique activities and experiences.",
     "Lack of parking facilities.",
     "Perfect spot for adventure lovers.",
     "Not accessible for people with disabilities.",
@@ -84,14 +77,16 @@ def generate_opening_hours():
 # Data generator function
 
 
-def generate_tourist_data():
+def generate_place():
     lat, lon = generate_coordinates()
     place_type = random.choice(place_types)
     category = random.choice(categories)
+    id = random.ranint(1, 50000)
     record = {
+        "place_id": id,
         "region": random.choice(regions),
         "type": place_type,
-        "name": f"{place_type} {random.choice(names)}",
+        "name": f"place {id}",
         "category": category,
         "latitude": lat,
         "longitude": lon,
@@ -104,12 +99,44 @@ def generate_tourist_data():
         "average_visit_duration": random.randint(30, 480),
         "weather": random.sample(["sunny", "windy", "cold", "rainy"], random.randint(1, 4)),
         "languages_available": random.sample(["Arabic", "French", "English", "Spanish", "German"], random.randint(1, 5)),
-        "comment": f"{place_type} is {random.choice(comments)}"
     }
     return record
+# Fonction pour générer les commentaires
 
+
+def generate_comment():
+    review = {
+        "place_id": random.randint(1, 50000),
+        "comment": random.choice(comments),
+    }
+    return review
+# générer un score
+def generate_score():
+    model_name = "nlptown/bert-base-multilingual-uncased-sentiment"  # Ex. modèle de sentiment
+    tokenizer = BertTokenizer.from_pretrained(model_name)
+    model = BertForSequenceClassification.from_pretrained(model_name)
+    review = generate_comment()
+
+    # 2. Prétraiter le commentaire
+    comment = review["comment"]  # Exemple de commentaire
+    print(comment)
+    inputs = tokenizer(comment, return_tensors="pt", truncation=True, padding=True, max_length=512)
+
+    # 3. Obtenir les prédictions
+    with torch.no_grad():
+        outputs = model(**inputs)
+        logits = outputs.logits
+
+    # 4. Convertir les logits en scores
+    probabilities = torch.nn.functional.softmax(logits, dim=-1)
+    score = torch.argmax(probabilities).item()  # Catégorie prédite
+    confidence = probabilities[0, score].item()  # Confiance associée
+
+    review["sentiment_score"] = score
+    return review
+    
+    
 # Fonction pour obtenir la localisation de l'utilisateur
-
 
 def user_location():
     return generate_coordinates()
@@ -119,3 +146,6 @@ def user_location():
 
 def user_weather():
     return random.choice(["sunny", "windy", "rainy", "cold"])
+
+review = generate_score()
+print(review)
