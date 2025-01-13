@@ -1,0 +1,1 @@
+from .fetch_data import user_location,user_weather,generate_tourist_data
