@@ -1,4 +1,3 @@
-import pandas as pd
 import random
 
 # Fonction pour ajouter une ligne au fichier CSV
