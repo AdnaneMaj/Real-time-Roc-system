@@ -86,43 +86,40 @@ def generate_place():
         "place_id": id,
         "region": random.choice(regions),
         "type": place_type,
-        "name": f"place {id}",
+        "name": f"Place_{id}",
         "category": category,
-        "latitude": lat,
         "longitude": lon,
-        "entry_fee": generate_price(),
+        "latitude": lat,
         "opening_hours": generate_opening_hours(),
+        "entry_fee": generate_price(),
         "available_activities": random.sample(activities, random.randint(1, 5)),
         "wheelchair_accessible": random.choice([True, False]),
         "parking_available": random.choice([True, False]),
         "max_capacity": random.randint(50, 5000),
+        "weather": random.choice(["sunny", "windy", "cold", "rainy"]),
+        "language_available": random.sample(["Arabic", "French", "English", "Spanish", "German"], random.randint(1, 5)),
         "average_visit_duration": random.randint(30, 480),
-        "weather": random.sample(["sunny", "windy", "cold", "rainy"], random.randint(1, 4)),
-        "languages_available": random.sample(["Arabic", "French", "English", "Spanish", "German"], random.randint(1, 5)),
     }
     return record
 # Fonction pour générer les commentaires
 
 
 def generate_comment():
+    comment = random.choice(comments)
     review = {
         "place_id": random.randint(1, 50000),
-        "comment": random.choice(comments),
+        "comment": comment,
+        "sentiment_score": generate_score(comment)
     }
     return review
 # générer un score
 
 
-def generate_score():
+def generate_score(comment):
     # Ex. modèle de sentiment
     model_name = "nlptown/bert-base-multilingual-uncased-sentiment"
     tokenizer = BertTokenizer.from_pretrained(model_name)
     model = BertForSequenceClassification.from_pretrained(model_name)
-    review = generate_comment()
-
-    # 2. Prétraiter le commentaire
-    comment = review["comment"]  # Exemple de commentaire
-    print(comment)
     inputs = tokenizer(comment, return_tensors="pt",
                        truncation=True, padding=True, max_length=512)
 
@@ -135,9 +132,7 @@ def generate_score():
     probabilities = torch.nn.functional.softmax(logits, dim=-1)
     score = torch.argmax(probabilities).item()  # Catégorie prédite
     confidence = probabilities[0, score].item()  # Confiance associée
-
-    review["sentiment_score"] = score
-    return review
+    return score
 
 
 # Fonction pour obtenir la localisation de l'utilisateur
