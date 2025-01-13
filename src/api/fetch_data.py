@@ -111,8 +111,11 @@ def generate_comment():
     }
     return review
 # générer un score
+
+
 def generate_score():
-    model_name = "nlptown/bert-base-multilingual-uncased-sentiment"  # Ex. modèle de sentiment
+    # Ex. modèle de sentiment
+    model_name = "nlptown/bert-base-multilingual-uncased-sentiment"
     tokenizer = BertTokenizer.from_pretrained(model_name)
     model = BertForSequenceClassification.from_pretrained(model_name)
     review = generate_comment()
@@ -120,7 +123,8 @@ def generate_score():
     # 2. Prétraiter le commentaire
     comment = review["comment"]  # Exemple de commentaire
     print(comment)
-    inputs = tokenizer(comment, return_tensors="pt", truncation=True, padding=True, max_length=512)
+    inputs = tokenizer(comment, return_tensors="pt",
+                       truncation=True, padding=True, max_length=512)
 
     # 3. Obtenir les prédictions
     with torch.no_grad():
@@ -134,8 +138,8 @@ def generate_score():
 
     review["sentiment_score"] = score
     return review
-    
-    
+
+
 # Fonction pour obtenir la localisation de l'utilisateur
 
 def user_location():
@@ -146,6 +150,3 @@ def user_location():
 
 def user_weather():
     return random.choice(["sunny", "windy", "rainy", "cold"])
-
-review = generate_score()
-print(review)
