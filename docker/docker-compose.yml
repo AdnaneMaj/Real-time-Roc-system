@@ -54,16 +54,11 @@ services:
     build:
       context: ..
       dockerfile: docker/Dockerfile  # Specifies the location of the Dockerfile explicitly
-
-
     container_name: app
     depends_on:
       - kafka
       - mongo
       - spark-master
-    volumes:
-      - .:/app
-    command: python src/dashboard/app.py
     ports:
       - "5000:5000"
 
