@@ -1,20 +1,20 @@
 import csv
-import pymongo
-from pymongo import MongoClient
+from pathlib import Path
+from models import MongoConfig
 
-# MongoDB connection (use 'localhost' if running outside Docker)
-  # Connect to MongoDB running on localhost
-client = MongoClient('mongodb://mongo:27017/')  # 'mongo' is the service name in docker-compose.yml
+#Create an instance of MongoConfig class
+mongo = MongoConfig()
 
-db = client['projets']  # Replace with your actual database name
+# Since PYTHONPATH=/app/src, this will point to /app/src
+BASE_DIR = Path(__file__).parent
 
 # Insert data into 'places' collection
 def insert_places():
     try:
-        with open('./places.csv', 'r') as file:
+        with open(BASE_DIR / 'places.csv', 'r') as file:
             reader = csv.DictReader(file)
             places = list(reader)
-            db.places.insert_many(places)
+            mongo.places_collection.places.insert_many(places)
         print('Places data inserted')
     except Exception as e:
         print(f"Error inserting places: {e}")
@@ -22,10 +22,10 @@ def insert_places():
 # Insert data into 'reviews' collection
 def insert_reviews():
     try:
-        with open('./reviews.csv', 'r') as file:
+        with open(BASE_DIR / 'reviews.csv', 'r') as file:
             reader = csv.DictReader(file)
             reviews = list(reader)
-            db.reviews.insert_many(reviews)
+            mongo.reviews_collection.insert_many(reviews)
         print('Reviews data inserted')
     except Exception as e:
         print(f"Error inserting reviews: {e}")
