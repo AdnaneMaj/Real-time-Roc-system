@@ -1,4 +1,5 @@
 numpy
+pandas
 motor
 pydantic_settings
 geopy
