@@ -14,7 +14,7 @@ def insert_places():
         with open(BASE_DIR / 'places.csv', 'r') as file:
             reader = csv.DictReader(file)
             places = list(reader)
-            mongo.places_collection.places.insert_many(places)
+            mongo.places_collection.insert_many(places)
         print('Places data inserted')
     except Exception as e:
         print(f"Error inserting places: {e}")
