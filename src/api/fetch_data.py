@@ -1,5 +1,6 @@
 import random
-
+import time
+from data import consume_from_kafka,send_to_kafka
 # Fonction pour ajouter une ligne au fichier CSV
 
 
@@ -118,3 +119,19 @@ def user_location():
 
 def user_weather():
     return random.choice(["sunny", "windy", "rainy", "cold"])
+
+
+if __name__=="__main__":
+
+
+    while True:
+
+        # Fetch and publish weather data
+        weather = user_weather()
+        send_to_kafka(topic="weather",data={"current_weather":weather})
+
+        print(f"Weather sent successufly : {weather}")
+
+        # Sleep for a while before fetching again (e.g., every 5 minutes)
+        time.sleep(300)
+

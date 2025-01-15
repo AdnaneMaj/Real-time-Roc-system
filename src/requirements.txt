@@ -1,3 +1,8 @@
 numpy
 motor
-pydantic_settings
+pydantic-settings
+geopy
+kafka-python==2.0.2
+flask
+pyspark
+dash
