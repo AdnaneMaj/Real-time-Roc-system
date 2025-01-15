@@ -21,7 +21,7 @@ cd Real-time-Roc-system
 The project uses Docker Compose to set up the necessary containers. To build the Docker image and start the containers, run the following command:
 
 ```bash
-docker build -t my-python-app -f docker/Dockerfile .
+docker-compose -f docker/docker-compose.yml --build
 ```
 
 This command will:

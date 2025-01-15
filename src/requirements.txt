@@ -1,5 +1,10 @@
 numpy
+pandas
 motor
 pydantic_settings
+geopy
+kafka-python==2.0.2
+flask
+pyspark
+dash
 pymongo==4.1.1
-
