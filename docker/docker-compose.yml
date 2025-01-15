@@ -67,16 +67,5 @@ services:
     ports:
       - "5000:5000"
 
-  insert_data:
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile
-    container_name: insert_data
-    depends_on:
-      - mongo
-    #volumes:
-    #  - ../src:/src  # Maps the src folder to /src inside the container
-    #command: python /src/insert_data.py  # Correct path to your insert_data.py
-
 volumes:
   mongo-data:

@@ -11,7 +11,7 @@ db = client['projets']  # Replace with your actual database name
 # Insert data into 'places' collection
 def insert_places():
     try:
-        with open('/src/places.csv', 'r') as file:
+        with open('./places.csv', 'r') as file:
             reader = csv.DictReader(file)
             places = list(reader)
             db.places.insert_many(places)
@@ -22,7 +22,7 @@ def insert_places():
 # Insert data into 'reviews' collection
 def insert_reviews():
     try:
-        with open('/src/reviews.csv', 'r') as file:
+        with open('./reviews.csv', 'r') as file:
             reader = csv.DictReader(file)
             reviews = list(reader)
             db.reviews.insert_many(reviews)
