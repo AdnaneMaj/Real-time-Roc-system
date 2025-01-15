@@ -29,6 +29,8 @@ services:
       - "27017:27017"
     volumes:
       - ./mongo-data:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+
 
   spark-master:
     image: bitnami/spark:latest
@@ -37,7 +39,7 @@ services:
       SPARK_MODE: master
     ports:
       - "7077:7077"
-      - "8080:8080"
+      - "8082:8082"
 
   spark-worker:
     image: bitnami/spark:latest
@@ -50,20 +52,16 @@ services:
     ports:
       - "8081:8081"
 
+
   app:
     build:
       context: ..
-      dockerfile: docker/Dockerfile  # Specifies the location of the Dockerfile explicitly
-
-
-    container_name: app
-    depends_on:
-      - kafka
-      - mongo
-      - spark-master
+      dockerfile: docker/Dockerfile
     volumes:
-      - .:/app
-    command: python src/dashboard/app.py
+      - ../src:/app/src
+    working_dir: /app
+    command: ["python", "src/dashboard/app.py"]
+    container_name: app
     ports:
       - "5000:5000"
 

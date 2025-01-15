@@ -1,3 +1,6 @@
 numpy
 motor
 pydantic_settings
+transformers
+random
+torch

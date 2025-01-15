@@ -2,7 +2,24 @@ import pandas as pd
 import random
 from transformers import BertTokenizer, BertForSequenceClassification
 import torch
+from pymongo import MongoClient
+import time
+import logging
 
+logging.basicConfig(level=logging.INFO)
+
+# Connexion à MongoDB
+# Le service MongoDB défini dans docker-compose
+client = MongoClient("mongodb://mongo:27017")
+projets = client["projets"]  # Nom de la base de données
+places = projets["places"]  # Collection pour les lieux
+reviews = projets["reviews"]  # Collection pour les commentaires
+
+
+model_name = "nlptown/bert-base-multilingual-uncased-sentiment"
+tokenizer = BertTokenizer.from_pretrained(model_name)
+model = BertForSequenceClassification.from_pretrained(model_name)
+model.eval()
 # Fonction pour ajouter une ligne au fichier CSV
 
 regions = [
@@ -81,7 +98,7 @@ def generate_place():
     lat, lon = generate_coordinates()
     place_type = random.choice(place_types)
     category = random.choice(categories)
-    id = random.ranint(1, 50000)
+    id = random.randint(1, 50000)
     record = {
         "place_id": id,
         "region": random.choice(regions),
@@ -100,6 +117,11 @@ def generate_place():
         "language_available": random.sample(["Arabic", "French", "English", "Spanish", "German"], random.randint(1, 5)),
         "average_visit_duration": random.randint(30, 480),
     }
+    try:
+        places.insert_one(record)
+        logging.info(f"Place inserted: {record}")
+    except Exception as e:
+        logging.error(f"Error inserting place: {e}")
     return record
 # Fonction pour générer les commentaires
 
@@ -111,15 +133,17 @@ def generate_comment():
         "comment": comment,
         "sentiment_score": generate_score(comment)
     }
+    try:
+        reviews.insert_one(review)
+        logging.info(f"Review inserted: {review}")
+    except Exception as e:
+        logging.error(f"Error inserting review: {e}")
     return review
 # générer un score
 
 
 def generate_score(comment):
     # Ex. modèle de sentiment
-    model_name = "nlptown/bert-base-multilingual-uncased-sentiment"
-    tokenizer = BertTokenizer.from_pretrained(model_name)
-    model = BertForSequenceClassification.from_pretrained(model_name)
     inputs = tokenizer(comment, return_tensors="pt",
                        truncation=True, padding=True, max_length=512)
 
@@ -145,3 +169,10 @@ def user_location():
 
 def user_weather():
     return random.choice(["sunny", "windy", "rainy", "cold"])
+
+
+def simulate_realtime_data():
+    while True:
+        generate_place()
+        generate_comment()
+        time.sleep(60)
