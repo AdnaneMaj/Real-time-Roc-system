@@ -21,6 +21,11 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     ports:
       - "9092:9092"
+    healthcheck:
+      test: ["CMD", "kafka-topics", "--list", "--bootstrap-server", "kafka:9092"]
+      interval: 5s
+      timeout: 10s
+      retries: 10
 
   mongo:
     image: mongo:latest
@@ -59,22 +64,8 @@ services:
       - kafka
       - mongo
       - spark-master
-    volumes:
-      - .:/app
-    command: python src/dashboard/app.py
     ports:
       - "5000:5000"
-
-  insert_data:
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile
-    container_name: insert_data
-    depends_on:
-      - mongo
-    volumes:
-      - ../src:/src  # Maps the src folder to /src inside the container
-    command: python /src/insert_data.py  # Correct path to your insert_data.py
 
 volumes:
   mongo-data:
