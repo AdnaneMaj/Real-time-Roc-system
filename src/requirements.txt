@@ -8,3 +8,6 @@ flask
 pyspark
 dash
 pymongo==4.1.1
+transformers
+torch
+streamlit
