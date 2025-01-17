@@ -11,3 +11,4 @@ pymongo==4.1.1
 transformers
 torch
 streamlit
+pandas
