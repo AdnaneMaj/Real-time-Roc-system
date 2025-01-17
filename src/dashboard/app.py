@@ -2,6 +2,7 @@ import streamlit as st
 from kafka import KafkaConsumer
 import json
 import pandas as pd
+import time
 
 # Streamlit app title
 st.title("Kafka Consumer Dashboard - Weather Topic")
@@ -15,7 +16,8 @@ consumer = KafkaConsumer(
 )
 
 # Placeholder for messages
-messages = st.empty()
+message_placeholder = st.empty()
+table_placeholder = st.empty()
 
 # Function to process Kafka messages
 def process_messages():
@@ -24,14 +26,16 @@ def process_messages():
         try:
             # Parse JSON message (if applicable)
             data = json.loads(msg)
-            st.write(f"**Message:** {data}")
+            message_placeholder.write(f"**Latest Message:** {data}")
 
             # Display data in a table
             df = pd.DataFrame([data])
-            st.table(df)
+            table_placeholder.table(df)
 
         except json.JSONDecodeError:
-            st.write(f"**Raw Message:** {msg}")
+            message_placeholder.write(f"**Raw Message:** {msg}")
+
+        time.sleep(1)
 
 # Run the message processing function
 process_messages()
