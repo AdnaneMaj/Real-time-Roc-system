@@ -19,6 +19,7 @@ COPY src /app/src
 # Expose the port your app will run on
 EXPOSE 5000
 EXPOSE 9092
+EXPOSE 8501
 
 # Copy the shell script into the container
 COPY src/start.sh /app/start.sh
