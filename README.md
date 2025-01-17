@@ -35,9 +35,12 @@ Once the containers are up, you can access your application by navigating to the
 For example, if the `docker-compose.yml` file exposes port 5000 for your app, you can open the application in your browser at:
 
 ```
-http://localhost:5000 
+http://0.0.0.0:8501/
 ```
-*There is nothing here yet*
+
+You are supposed something like this : 
+
+![](images/weather.png)
 
 ### 4. Stopping the Containers
 
