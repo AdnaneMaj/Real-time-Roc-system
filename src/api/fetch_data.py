@@ -1,10 +1,8 @@
-import pandas as pd
 import random
-from transformers import BertTokenizer, BertForSequenceClassification
-import torch
+#from transformers import BertTokenizer, BertForSequenceClassification
+#import torch
 from pymongo import MongoClient
 import time
-
 
 # Fonction pour ajouter une ligne au fichier CSV
 model_name = "nlptown/bert-base-multilingual-uncased-sentiment"
@@ -152,8 +150,7 @@ def user_location():
 
 def user_weather():
     return random.choice(["sunny", "windy", "rainy", "cold"])
-
-
+  
 def insert_data_realtime():
     try:
         while True:
@@ -172,5 +169,20 @@ def insert_data_realtime():
     except Exception as e:
         print(f"Error during real-time insertion: {e}")
 
-if __name__ == "__main__":
-    insert_data_realtime()
+
+if __name__=="__main__":
+    from kafka import KafkaProducer
+    import random
+
+    producer = KafkaProducer(bootstrap_servers = 'kafka:9092')
+
+
+    while True:
+        #Insert incoming data
+        insert_data_realtime()
+        
+        #Get weather
+        msg = user_weather()
+        producer.send('weather-topic', msg.encode('utf-8'))
+        print("The weather is : \"{}\"".format(msg))
+        print("Message sent!")
