@@ -1,8 +1,17 @@
 import random
 #from transformers import BertTokenizer, BertForSequenceClassification
 #import torch
+from pymongo import MongoClient
+import time
 
 # Fonction pour ajouter une ligne au fichier CSV
+model_name = "nlptown/bert-base-multilingual-uncased-sentiment"
+tokenizer = BertTokenizer.from_pretrained(model_name)
+model = BertForSequenceClassification.from_pretrained(model_name)
+
+
+client = MongoClient('mongodb://localhost:27017/')  # Remplacez localhost par "mongo" si Docker
+db = client['projets'] 
 
 regions = [
     "Tanger-Tetouan-Al Hoceima", "L'Oriental", "Fes-Meknes", "Rabat-Sale-Kenitra",
@@ -80,7 +89,7 @@ def generate_place():
     lat, lon = generate_coordinates()
     place_type = random.choice(place_types)
     category = random.choice(categories)
-    id = random.ranint(1, 50000)
+    id = random.randint(1, 50000)
     record = {
         "place_id": id,
         "region": random.choice(regions),
@@ -116,9 +125,6 @@ def generate_comment():
 
 def generate_score(comment):
     # Ex. modèle de sentiment
-    model_name = "nlptown/bert-base-multilingual-uncased-sentiment"
-    tokenizer = BertTokenizer.from_pretrained(model_name)
-    model = BertForSequenceClassification.from_pretrained(model_name)
     inputs = tokenizer(comment, return_tensors="pt",
                        truncation=True, padding=True, max_length=512)
 
@@ -144,6 +150,24 @@ def user_location():
 
 def user_weather():
     return random.choice(["sunny", "windy", "rainy", "cold"])
+  
+def insert_data_realtime():
+    try:
+        while True:
+            # Générer un document pour places et reviews
+            place = generate_place()
+            review = generate_comment()
+
+            # Insérer dans les collections
+            db.places.insert_one(place)
+            db.reviews.insert_one(review)
+
+            print(f"Inserted place: {place['name']}, review sentiment: {review['sentiment_score']}")
+            
+            # Attendre avant la prochaine insertion
+            time.sleep(60)  # Modifier le délai en secondes si nécessaire
+    except Exception as e:
+        print(f"Error during real-time insertion: {e}")
 
 
 if __name__=="__main__":
@@ -154,6 +178,10 @@ if __name__=="__main__":
 
 
     while True:
+        #Insert incoming data
+        insert_data_realtime()
+        
+        #Get weather
         msg = user_weather()
         producer.send('weather-topic', msg.encode('utf-8'))
         print("The weather is : \"{}\"".format(msg))
