@@ -1,9 +1,6 @@
-import pandas as pd
 import random
-import time
-from transformers import BertTokenizer, BertForSequenceClassification
-import torch
-from data import consume_from_kafka,send_to_kafka
+#from transformers import BertTokenizer, BertForSequenceClassification
+#import torch
 
 # Fonction pour ajouter une ligne au fichier CSV
 
@@ -148,16 +145,16 @@ def user_location():
 def user_weather():
     return random.choice(["sunny", "windy", "rainy", "cold"])
 
+
 if __name__=="__main__":
+    from kafka import KafkaProducer
+    import random
+
+    producer = KafkaProducer(bootstrap_servers = 'kafka:9092')
 
 
     while True:
-
-        # Fetch and publish weather data
-        weather = user_weather()
-        send_to_kafka(topic="weather",data={"current_weather":weather})
-
-        print(f"Weather sent successufly : {weather}")
-
-        # Sleep for a while before fetching again (e.g., every 5 minutes)
-        time.sleep(300)
+        msg = user_weather()
+        producer.send('weather-topic', msg.encode('utf-8'))
+        print("The weather is : \"{}\"".format(msg))
+        print("Message sent!")
