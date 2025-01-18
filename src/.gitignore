@@ -1,1 +1,3 @@
 docker-compose-spark.txt
+data/static/places.json
+data/static/reviews.json
