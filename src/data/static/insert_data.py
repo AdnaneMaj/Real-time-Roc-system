@@ -2,8 +2,6 @@ import json
 from pathlib import Path
 from models import MongoConfig
 import ijson  # You'll need to install this package
-
-# Create an instance of MongoConfig class
 mongo = MongoConfig()
 
 # Since PYTHONPATH=/app/src, this will point to /app/src
