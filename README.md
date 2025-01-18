@@ -16,6 +16,8 @@ git clone https://github.com/AdnaneMaj/Real-time-Roc-system.git
 cd Real-time-Roc-system
 ```
 
+**Before building, copy places.json and reviews.json file inside [/src/data/static/](/src/data/static/)**
+
 ### 2. Build and Start the Containers
 
 The project uses Docker Compose to set up the necessary containers. To build the Docker image and start the containers, run the following command:

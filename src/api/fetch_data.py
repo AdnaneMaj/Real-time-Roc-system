@@ -17,8 +17,8 @@ class UserLocalization:
 
     @staticmethod
     def generate_coordinates():
-        lat = 28.8651  # a place in morroco
-        lon = -9.1773  
+        lat = 34.4266787  # a place in morroco
+        lon = -119.7111968  
         return (round(lat, 4), round(lon, 4))
 
     def update_position(self, direction_angle=45):
