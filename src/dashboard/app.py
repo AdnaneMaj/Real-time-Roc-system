@@ -45,7 +45,7 @@ def process_localization_data(message):
         latitude, longitude = data
 
         # Fetch nearby places from the database
-        nearby_places = mongodb.get_nearby_places(latitude, longitude, max_distance_km=1)
+        nearby_places = mongodb.get_nearby_places(latitude, longitude, max_distance_km=100)
 
         # Update the Streamlit app with the localization data
         col1, col2 = st.columns(2)
