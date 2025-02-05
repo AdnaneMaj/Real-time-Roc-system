@@ -1,0 +1,80 @@
+Epoch 1/20
+Epoch 1: 100%|██████████| 348/348 [21:32<00:00,  3.71s/batch, batch_loss=0.642347395]
+Epoch 1 Loss: 223.858501792
+Checkpoint saved at /kaggle/working/checkpoints/checkpoint_epoch_1.pt
+Epoch 2/20
+Epoch 2: 100%|██████████| 348/348 [21:31<00:00,  3.71s/batch, batch_loss=0.435006708]
+Epoch 2 Loss: 184.828769177
+Checkpoint saved at /kaggle/working/checkpoints/checkpoint_epoch_2.pt
+Epoch 3/20
+Epoch 3: 100%|██████████| 348/348 [21:26<00:00,  3.70s/batch, batch_loss=0.194178909]
+Epoch 3 Loss: 93.846831322
+Checkpoint saved at /kaggle/working/checkpoints/checkpoint_epoch_3.pt
+Epoch 4/20
+Epoch 4: 100%|██████████| 348/348 [21:24<00:00,  3.69s/batch, batch_loss=0.126293793]
+Epoch 4 Loss: 51.912563406
+Checkpoint saved at /kaggle/working/checkpoints/checkpoint_epoch_4.pt
+Epoch 5/20
+Epoch 5: 100%|██████████| 348/348 [21:25<00:00,  3.69s/batch, batch_loss=0.090351224]
+Epoch 5 Loss: 34.337652005
+Checkpoint saved at /kaggle/working/checkpoints/checkpoint_epoch_5.pt
+Epoch 6/20
+Epoch 6: 100%|██████████| 348/348 [21:25<00:00,  3.69s/batch, batch_loss=0.068687439]
+Epoch 6 Loss: 24.848099899
+Checkpoint saved at /kaggle/working/checkpoints/checkpoint_epoch_6.pt
+Epoch 7/20
+Epoch 7: 100%|██████████| 348/348 [21:24<00:00,  3.69s/batch, batch_loss=0.055124994]
+Epoch 7 Loss: 18.796508126
+Checkpoint saved at /kaggle/working/checkpoints/checkpoint_epoch_7.pt
+Epoch 8/20
+Epoch 8: 100%|██████████| 348/348 [21:24<00:00,  3.69s/batch, batch_loss=0.045020405]
+Epoch 8 Loss: 14.912259892
+Checkpoint saved at /kaggle/working/checkpoints/checkpoint_epoch_8.pt
+Epoch 9/20
+Epoch 9: 100%|██████████| 348/348 [21:24<00:00,  3.69s/batch, batch_loss=0.025944773]
+Epoch 9 Loss: 12.093070334
+Checkpoint saved at /kaggle/working/checkpoints/checkpoint_epoch_9.pt
+Epoch 10/20
+Epoch 10: 100%|██████████| 348/348 [21:25<00:00,  3.69s/batch, batch_loss=0.026369946]
+Epoch 10 Loss: 10.086816324
+Checkpoint saved at /kaggle/working/checkpoints/checkpoint_epoch_10.pt
+Epoch 11/20
+Epoch 11: 100%|██████████| 348/348 [21:25<00:00,  3.69s/batch, batch_loss=0.023187652]
+Epoch 11 Loss: 8.504620004
+Checkpoint saved at /kaggle/working/checkpoints/checkpoint_epoch_11.pt
+Epoch 12/20
+Epoch 12: 100%|██████████| 348/348 [21:25<00:00,  3.70s/batch, batch_loss=0.017915769]
+Epoch 12 Loss: 7.375841509
+Checkpoint saved at /kaggle/working/checkpoints/checkpoint_epoch_12.pt
+Epoch 13/20
+Epoch 13: 100%|██████████| 348/348 [21:24<00:00,  3.69s/batch, batch_loss=0.017686773]
+Epoch 13 Loss: 6.374327681
+Checkpoint saved at /kaggle/working/checkpoints/checkpoint_epoch_13.pt
+Epoch 14/20
+Epoch 14: 100%|██████████| 348/348 [21:25<00:00,  3.69s/batch, batch_loss=0.018784776]
+Epoch 14 Loss: 5.647668032
+Checkpoint saved at /kaggle/working/checkpoints/checkpoint_epoch_14.pt
+Epoch 15/20
+Epoch 15: 100%|██████████| 348/348 [21:24<00:00,  3.69s/batch, batch_loss=0.013097379]
+Epoch 15 Loss: 5.036860981
+Checkpoint saved at /kaggle/working/checkpoints/checkpoint_epoch_15.pt
+Epoch 16/20
+Epoch 16: 100%|██████████| 348/348 [21:23<00:00,  3.69s/batch, batch_loss=0.013949787]
+Epoch 16 Loss: 4.415820602
+Checkpoint saved at /kaggle/working/checkpoints/checkpoint_epoch_16.pt
+Epoch 17/20
+Epoch 17: 100%|██████████| 348/348 [21:24<00:00,  3.69s/batch, batch_loss=0.008857630]
+Epoch 17 Loss: 4.033027948
+Checkpoint saved at /kaggle/working/checkpoints/checkpoint_epoch_17.pt
+Epoch 18/20
+Epoch 18: 100%|██████████| 348/348 [21:25<00:00,  3.69s/batch, batch_loss=0.008723556]
+Epoch 18 Loss: 3.660326264
+Checkpoint saved at /kaggle/working/checkpoints/checkpoint_epoch_18.pt
+Epoch 19/20
+Epoch 19: 100%|██████████| 348/348 [21:25<00:00,  3.69s/batch, batch_loss=0.015576570]
+Epoch 19 Loss: 3.321304876
+Checkpoint saved at /kaggle/working/checkpoints/checkpoint_epoch_19.pt
+Epoch 20/20
+Epoch 20: 100%|██████████| 348/348 [21:25<00:00,  3.69s/batch, batch_loss=0.007155498]
+Epoch 20 Loss: 2.996577364
+Checkpoint saved at /kaggle/working/checkpoints/checkpoint_epoch_20.pt
