@@ -43,4 +43,4 @@ class MongoConfig:
         nearby_places = self.places_collection.find(query)
 
         # Extract and return the names of nearby places
-        return [place["name"] for place in nearby_places]
+        return nearby_places
