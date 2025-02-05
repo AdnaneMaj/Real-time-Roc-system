@@ -1,0 +1,4 @@
+src/data
+src/weights
+__pycache__
+GNN_losses
