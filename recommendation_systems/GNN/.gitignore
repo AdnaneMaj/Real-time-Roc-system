@@ -1,5 +1,4 @@
 src/data
-*.ipynb
 src/weights
 __pycache__
 GNN_losses
